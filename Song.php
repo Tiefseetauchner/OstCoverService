@@ -1,8 +1,6 @@
 <?php
 
-
 namespace LiveSchach;
-
 
 class Song
 {
@@ -28,6 +26,4 @@ class Song
     $this->trackNumber = $trackNumber;
     $this->duration = $duration;
   }
-
-
 }
