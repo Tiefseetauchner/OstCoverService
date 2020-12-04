@@ -9,19 +9,17 @@ spl_autoload_register(function ($class) {
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <title>sadf</title>
+  <title>API Test Site</title>
 </head>
 <body>
-<h1>asdf</h1>
+<h1>API Test Site</h1>
 <?php
 $testDataGenerator = new SongTestDataGenerator();
-var_dump($testDataGenerator->testData);
-echo "<br>";
-
-$testDataGenerator->generateTestData();
-var_dump($testDataGenerator->testData);
-echo "<br>";
-
+for ($i = 0; $i < 10; $i++) {
+  var_dump($testDataGenerator->testData);
+  echo "<br>";
+  $testDataGenerator->generateTestData();
+}
 ?>
 </body>
 </html>

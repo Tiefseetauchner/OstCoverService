@@ -26,7 +26,9 @@ class SongTestDataGenerator extends TestDataGenerator
   protected function getTestData()
   {
     $songList = ["U", "U", "U", "1.11"];
-    
+
+    fclose($this->songFile);
+    $this->songFile = fopen("songs.csv", 'r');
     for ($i = 0; $i < rand(1, $this->lineCount); $i++) {
       $songList = fgetcsv($this->songFile, 0, ';');
     }
