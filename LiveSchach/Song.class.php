@@ -4,11 +4,11 @@ namespace LiveSchach;
 
 class Song
 {
-  var string $id;
-  var string $name;
-  var string $artist;
-  var int $trackNumber;
-  var float $duration;
+  public string $id;
+  public string $name;
+  public string $artist;
+  public int $trackNumber;
+  public float $duration;
 
   /**
    * Song constructor.
