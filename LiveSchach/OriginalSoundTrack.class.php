@@ -4,11 +4,11 @@ namespace LiveSchach;
 
 class OriginalSoundTrack
 {
-  var string $id;
-  var string $name;
-  var string $videoGame;
-  var int $releaseYear;
-  var array $songList;
+  public string $id;
+  public string $name;
+  public string $videoGame;
+  public int $releaseYear;
+  public array $songList;
 
   /**
    * OriginalSoundTrack constructor.
