@@ -13,8 +13,18 @@ spl_autoload_register(function ($class) {
 </head>
 <body>
 <h1>API Test Site</h1>
+<h2>Song Tests</h2>
 <?php
 $testDataGenerator = new SongTestDataGenerator();
+for ($i = 0; $i < 10; $i++) {
+  var_dump($testDataGenerator->testData);
+  echo "<br>";
+  $testDataGenerator->generateTestData();
+}
+?>
+<h2>OST Tests</h2>
+<?php
+$testDataGenerator = new OriginalSoundTrackTestDataGenerator();
 for ($i = 0; $i < 10; $i++) {
   var_dump($testDataGenerator->testData);
   echo "<br>";

@@ -11,7 +11,7 @@ abstract class TestDataGenerator
     $this->testData = $this->getTestData();
   }
 
-  protected abstract function getTestData();
+  public abstract function getTestData();
 
   public function generateTestData()
   {

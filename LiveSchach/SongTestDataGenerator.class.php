@@ -23,7 +23,7 @@ class SongTestDataGenerator extends TestDataGenerator
   }
 
 
-  protected function getTestData()
+  public function getTestData()
   {
     $songList = ["U", "U", "U", "1.11"];
 
