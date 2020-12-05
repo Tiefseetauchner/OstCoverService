@@ -6,17 +6,26 @@ $servername = "localhost";
 $username = "OstServiceUser";
 $password = "automationIsKing01";
 
-try {
-  $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  echo "Connected successfully";
-} catch(PDOException $e) {
-  echo "Connection failed: " . $e->getMessage();
-}
+$conn = new PDO("mysql:host=$servername;dbname=OstCoverService", $username, $password);
+// set the PDO error mode to exception
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 if (array_key_exists("id", $request)) {
-  echo "ID Exists: " . $request["id"];
-  $conn->prepare("select * from ");
+  $id = $request["id"];
+  $databaseRequest = $conn->prepare("select * from songs where id = '$id'");
+  $databaseRequest->execute();
+
+  $result = $databaseRequest->fetchAll(PDO::FETCH_ASSOC);
+
+  if (empty($result)) {
+    $result = ["error" => "ID not found"];
+  }
+
+  header('Content-Type: application/json');
+
+  $result = json_encode($result);
+
+  echo $result;
 }
+
