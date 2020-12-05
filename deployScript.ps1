@@ -24,4 +24,4 @@ if (Test-Path "createTestData.sql") {
 
 Remove-Item "$PSScriptRoot\..\OST\*" -Recurse -Force
 
-Copy-Item "$PSScriptRoot\*" -Destination "$PSScriptRoot\..\OST\" -Recurse -Exclude @(".*", "deployScript.ps1")
+Copy-Item "$PSScriptRoot\*" -Destination "$PSScriptRoot\..\OST\" -Recurse -Exclude @(".*", "deployScript.ps1", "deployScript.bat")
