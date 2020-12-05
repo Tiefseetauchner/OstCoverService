@@ -23,7 +23,6 @@ class OriginalSoundTrackTestDataGenerator extends TestDataGenerator
     parent::__construct();
   }
 
-
   public function getTestData()
   {
     $songs = array();
