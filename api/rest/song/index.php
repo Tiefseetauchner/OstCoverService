@@ -1,4 +1,7 @@
 <?php
+
+use LiveSchach\Song;
+
 $request = $_GET;
 
 
@@ -12,9 +15,9 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 $databaseRequest = $conn->prepare("select * from songs");
-$id = explode(",", $request["id"]);
 if (array_key_exists("id", $request)) {
-  $in  = str_repeat('?,', count($id) - 1) . '?';
+  $id = explode(",", $request["id"]);
+  $in = str_repeat('?,', count($id) - 1) . '?';
   $databaseRequest = $conn->prepare("select * from songs where id in($in)");
   $databaseRequest->execute($id);
 } else {
@@ -24,8 +27,11 @@ if (array_key_exists("id", $request)) {
 $result = $databaseRequest->fetchAll(PDO::FETCH_ASSOC);
 
 if (empty($result)) {
-  $result = ["error" => "ID $id not found"];
+  $result = ["error" => "ID not found"];
+} else {
+  $result = new Song($result["id"], $result["name"], $result["artist"], -1, $result["duration"]);
 }
+
 
 header('Content-Type: application/json');
 
