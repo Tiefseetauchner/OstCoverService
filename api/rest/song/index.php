@@ -29,7 +29,13 @@ if (array_key_exists("id", $request)) {
 $result = $databaseRequest->fetchAll(PDO::FETCH_ASSOC);
 
 if (empty($result)) {
-  $result = ["error" => "ID not found"];
+  $result = [
+    "timestamp" => date(DateTime::ATOM),
+    "status" => 404,
+    "error" => "Not found",
+    "message" => "Requested ID was not found",
+    "path" => "api/rest/song"
+  ];
 } else {
   $resultCopy = $result;
   $result = array();
