@@ -1,9 +1,12 @@
 <?php
 
+spl_autoload_register(function ($class) {
+  include "../../../" . $class . '.class.php';
+});
+
 use LiveSchach\Song;
 
 $request = $_GET;
-
 
 $servername = "localhost";
 $username = "OstServiceUser";
@@ -12,7 +15,6 @@ $password = "automationIsKing01";
 $conn = new PDO("mysql:host=$servername;dbname=OstCoverService", $username, $password);
 // set the PDO error mode to exception
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
 $databaseRequest = $conn->prepare("select * from songs");
 if (array_key_exists("id", $request)) {
@@ -29,7 +31,12 @@ $result = $databaseRequest->fetchAll(PDO::FETCH_ASSOC);
 if (empty($result)) {
   $result = ["error" => "ID not found"];
 } else {
-  $result = new Song($result["id"], $result["name"], $result["artist"], -1, $result["duration"]);
+  $resultCopy = $result;
+  $result = array();
+  foreach ($resultCopy as $item) {
+    $song = new Song($item["id"], $item["name"], $item["artist"], -1, $item["duration"]);
+    $result[$item["id"]] = $song;
+  }
 }
 
 
