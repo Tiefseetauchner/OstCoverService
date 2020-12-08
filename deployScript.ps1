@@ -1,12 +1,14 @@
 if (Test-Path "createTestData.sql")
 {
-    try {
+    try
+    {
         $mysql_server = "localhost"
-        $mysql_user = "root"
-        $mysql_password = "eah+S`;<6Pj=5-m["
 
-        mysql
-    } catch {
+        Get-Content .\createTestData.sql | mysql --defaults-extra-file=mysqlConfig
+    }
+    catch
+    {
+        write-error $Error[0]
         Write-Error "Database setup failed, is mysql installed?"
     }
 }
