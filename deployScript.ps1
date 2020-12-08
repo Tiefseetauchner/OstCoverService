@@ -2,8 +2,6 @@ if (Test-Path "createTestData.sql")
 {
     try
     {
-        $mysql_server = "localhost"
-
         Get-Content .\createTestData.sql | mysql --defaults-extra-file=mysqlConfig
     }
     catch
