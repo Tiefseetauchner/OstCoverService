@@ -18,29 +18,38 @@ $conn = new PDO("mysql:host=$servername;dbname=OstCoverService", $username, $pas
 // set the PDO error mode to exception
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$databaseRequest = $conn->prepare("select * from OriginalSoundTracks");
 if (array_key_exists("id", $request)) {
   $id = $request["id"];
-  $databaseRequest = $conn->prepare("select * from OriginalSoundTracks where id = $id");
-  $databaseRequest->execute();
+  $databaseRequest = $conn->prepare("select * from OriginalSoundTracks where id in(?)");
+  $databaseRequest->execute([$id]);
   $result = $databaseRequest->fetchAll(PDO::FETCH_ASSOC);
 
-  $databaseRequest = $conn->prepare("select * from Songs where id = $id");
-  $databaseRequest->execute($id);
+  $databaseRequest = $conn->prepare("select id,name,artist,duration from Songs where ost_id in(?)");
+  $databaseRequest->execute([$id]);
   $songs = $databaseRequest->fetchAll(PDO::FETCH_ASSOC);
 } else {
-  header('Content-Type: text/html');
   http_response_code(400);
-  $errorPage = file_get_contents("../../../../400.html");
 
-  $errorPage = str_replace("{{ERRMSG}}", "You fucking teapot didn't add a ID. This only works with specified IDs because my server is shit, plz don't kill it", $errorPage);
+  $result = [
+    "timestamp" => date(DateTime::ATOM),
+    "status" => 400,
+    "error" => "Bad Request",
+    "message" => "Request malformed. ID is Required (to keep the load manageable)",
+    "path" => "api/rest/originalsoundtrack/songs"
+  ];
 
-  echo $errorPage;
+  echo json_encode($result);
   exit;
 }
 
 if (empty($result)) {
-  $result = ["error" => "ID not found"];
+  $result = [
+    "timestamp" => date(DateTime::ATOM),
+    "status" => 404,
+    "error" => "Not found",
+    "message" => "Requested ID was not found",
+    "path" => "api/rest/originalsoundtrack/songs"
+  ];
 } else {
   $resultCopy = $result;
   $result = array();
