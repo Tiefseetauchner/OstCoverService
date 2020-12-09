@@ -4,6 +4,8 @@ spl_autoload_register(function ($class) {
   include "../../../" . $class . '.class.php';
 });
 
+header('Content-Type: application/json');
+
 use LiveSchach\Song;
 
 $request = $_GET;
@@ -44,9 +46,6 @@ if (empty($result)) {
     $result[$item["id"]] = $song;
   }
 }
-
-
-header('Content-Type: application/json');
 
 $result = json_encode($result);
 
