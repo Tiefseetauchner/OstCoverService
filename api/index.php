@@ -118,6 +118,9 @@
         </ul>
     </li>
 </ul>
-<p></p>
+<footer>
+    <hr>
+    <p>&#169; 2020 Christoph Tauchner</p>
+</footer>
 </body>
 </html>
