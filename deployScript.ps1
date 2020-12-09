@@ -16,9 +16,7 @@ else
 }
 
 Write-Host "Copying Files"
-
-Remove-Item "$PSScriptRoot\..\OST\*" -Recurse -Force
-
-Copy-Item "$PSScriptRoot\*" -Destination "$PSScriptRoot\..\OST\" -Recurse -Exclude @(".*", "deployScript.ps1", "deployScript.bat")
+Remove-Item "$env:XamppHome\htdocs\OST\*" -Recurse -Force
 
 Write-Host "Deployed to $PSScriptRoot\..\OST\"
+Copy-Item "$PSScriptRoot\*" -Destination "$env:XamppHome\htdocs\OST\" -Recurse -Exclude @(".*", "deployScript.ps1", "deployScript.bat")
