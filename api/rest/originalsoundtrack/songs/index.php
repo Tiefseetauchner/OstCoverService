@@ -5,6 +5,7 @@ spl_autoload_register(function ($class) {
 });
 
 use LiveSchach\OriginalSoundTrack;
+use LiveSchach\Song;
 
 header('Content-Type: application/json');
 
@@ -51,11 +52,20 @@ if (empty($result)) {
     "path" => "api/rest/originalsoundtrack/songs"
   ];
 } else {
+  $tracknumber = 1;
+  $songsCopy = $songs;
+  $songs = array();
+  foreach ($songsCopy as $item){
+    $song = new Song($item["id"], $item["name"], $item["artist"], $tracknumber, $item["duration"]);
+    $songs[$item["id"]] = $song;
+    $tracknumber ++;
+  }
+
   $resultCopy = $result;
   $result = array();
   foreach ($resultCopy as $item) {
-    $song = new OriginalSoundTrack($item["id"], $item["name"], $item["videoGame"], $item["releaseYear"], $songs);
-    $result[$item["id"]] = $song;
+    $ost = new OriginalSoundTrack($item["id"], $item["name"], $item["videoGame"], $item["releaseYear"], $songs);
+    $result[$item["id"]] = $ost;
   }
 }
 
