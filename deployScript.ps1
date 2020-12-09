@@ -22,6 +22,6 @@ if (Test-Path "createTestData.sql") {
     Write-Warning "No Database creation script found. Database will not be updated"
 }
 
-Remove-Item "$PSScriptRoot\..\OST\*" -Recurse -Force
+Remove-Item "$env:XamppHome\htdocs\OST\*" -Recurse -Force
 
-Copy-Item "$PSScriptRoot\*" -Destination "$PSScriptRoot\..\OST\" -Recurse -Exclude @(".*", "deployScript.ps1", "deployScript.bat")
+Copy-Item "$PSScriptRoot\*" -Destination "$env:XamppHome\htdocs\OST\" -Recurse -Exclude @(".*", "deployScript.ps1", "deployScript.bat")
