@@ -38,6 +38,7 @@ if (empty($result)) {
     "message" => "Requested ID was not found",
     "path" => "api/rest/originalsoundtrack"
   ];
+  http_response_code(404);
 } else {
   $resultCopy = $result;
   $result = array();
@@ -45,6 +46,7 @@ if (empty($result)) {
     $song = new OriginalSoundTrack($item["id"], $item["name"], $item["videoGame"], $item["releaseYear"], array());
     $result[$item["id"]] = $song;
   }
+  http_response_code(200);
 }
 
 $result = json_encode($result);

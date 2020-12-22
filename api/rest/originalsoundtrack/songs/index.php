@@ -44,6 +44,7 @@ if (array_key_exists("id", $request)) {
 }
 
 if (empty($result)) {
+  http_response_code(404);
   $result = [
     "timestamp" => date(DateTime::ATOM),
     "status" => 404,
@@ -67,6 +68,7 @@ if (empty($result)) {
     $ost = new OriginalSoundTrack($item["id"], $item["name"], $item["videoGame"], $item["releaseYear"], $songs);
     $result[$item["id"]] = $ost;
   }
+  http_response_code(200);
 }
 
 $result = json_encode($result);
