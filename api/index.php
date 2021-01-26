@@ -78,7 +78,7 @@
     (This is in order to keep load on SQL Backend low, as it only requests songs for one OST)</p>
 <ul>
     <li>URL<br/>
-        <a href="./rest/originalsoundtrack/songs">/api/rest/originalsoundtrack/songs?id=<i>id</i></a>
+        <a href="./rest/originalsoundtrack/song">/api/rest/originalsoundtrack/song?id=<i>id</i></a>
     </li>
     <li>URL Params<br/>
         <b>Required</b><br/>

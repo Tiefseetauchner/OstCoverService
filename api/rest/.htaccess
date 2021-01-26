@@ -1,0 +1,11 @@
+RewriteEngine on
+RewriteRule ^song/([a-fA-F\d]+) song.php?id=$1 [NC,L]
+RewriteRule ^song/?\?? song.php [NC,L]
+RewriteRule ^ost/?songs?/([a-fA-F\d]+) ostSong.php?id=$1 [NC,L]
+RewriteRule ^originalsoundtrack/?songs?/([A-F\d]+) ostSong.php?id=$1 [NC,L]
+RewriteRule ^ost/?songs?/?\?? ostSong.php [NC,L]
+RewriteRule ^originalsoundtrack/?songs?/?\?? ostSong.php [NC,L]
+RewriteRule ^originalsoundtrack/([a-fA-F\d]+) ost.php?id=$1 [NC,L]
+RewriteRule ^ost/([a-fA-F\d]+) ost.php?id=$1 [NC,L]
+RewriteRule ^originalsoundtrack/?\?? ost.php [NC,L]
+RewriteRule ^ost/?\?? ost.php [NC,L]

@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function ($class) {
-  include "../../../../" . $class . '.class.php';
+  include "../../" . $class . '.class.php';
 });
 
 use LiveSchach\OriginalSoundTrack;
@@ -36,7 +36,7 @@ if (array_key_exists("id", $request)) {
     "status" => 400,
     "error" => "Bad Request",
     "message" => "Request malformed. ID is Required (to keep the load manageable)",
-    "path" => "api/rest/originalsoundtrack/songs"
+    "path" => "api/rest/ostsongs"
   ];
 
   echo json_encode($result);

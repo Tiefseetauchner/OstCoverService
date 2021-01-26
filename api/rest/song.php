@@ -1,12 +1,12 @@
 <?php
 
 spl_autoload_register(function ($class) {
-  include "../../../" . $class . '.class.php';
+  include "../../" . $class . '.class.php';
 });
 
 header('Content-Type: application/json');
 
-use LiveSchach\OriginalSoundTrack;
+use LiveSchach\Song;
 
 $request = $_GET;
 
@@ -18,11 +18,11 @@ $conn = new PDO("mysql:host=$servername;dbname=OstCoverService", $username, $pas
 // set the PDO error mode to exception
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$databaseRequest = $conn->prepare("select * from OriginalSoundTracks");
+$databaseRequest = $conn->prepare("select * from songs");
 if (array_key_exists("id", $request)) {
   $id = explode(",", $request["id"]);
   $in = str_repeat('?,', count($id) - 1) . '?';
-  $databaseRequest = $conn->prepare("select * from OriginalSoundTracks where id in($in)");
+  $databaseRequest = $conn->prepare("select * from songs where id in($in)");
   $databaseRequest->execute($id);
 } else {
   $databaseRequest->execute();
@@ -36,14 +36,14 @@ if (empty($result)) {
     "status" => 404,
     "error" => "Not found",
     "message" => "Requested ID was not found",
-    "path" => "api/rest/originalsoundtrack"
+    "path" => "api/rest/song"
   ];
   http_response_code(404);
 } else {
   $resultCopy = $result;
   $result = array();
   foreach ($resultCopy as $item) {
-    $song = new OriginalSoundTrack($item["id"], $item["name"], $item["videoGame"], $item["releaseYear"], array());
+    $song = new Song($item["id"], $item["name"], $item["artist"], -1, $item["duration"]);
     $result[$item["id"]] = $song;
   }
   http_response_code(200);
